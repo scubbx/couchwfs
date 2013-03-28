@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CouchWFS Test</title>
+  </head>
+  <body>
+    <div id="content">
+      <h1>CouchWFS Test</h1>
+      <div id="demoMap" style="height:800px"></div>
+    </div>
+  </body>
+  <!-- <script src="/_utils/script/sha1.js"></script> -->
+  <!-- <script src="/_utils/script/json2.js"></script> -->
+  <!-- <script src="/_utils/script/jquery.js"></script> -->
+  <!-- <script src="/_utils/script/jquery.couch.js"></script> -->
+  <!-- <script src="couchapp/jquery.couchLogin.js"></script> -->
+  <!-- <script src="couchapp/jquery.couchProfile.js"></script> -->
+  <!-- <script src="couchapp/md5.js"></script> -->
+  <!-- <script src="couchapp/jquery.couchForm.js"></script> -->
+  <!-- <script src="couchapp/jquery.mustache.js"></script> -->
+  
+  <!-- <script src="script/app.js"></script> -->
+  <script src="OpenLayers.js"></script>
+  
+  <script>
+    var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+    var toProjection = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+    var position = new OpenLayers.LonLat(8.812,47.2212).transform( fromProjection, toProjection);
+    var zoom = 15; 
+    
+    map = new OpenLayers.Map("demoMap");
+    map.addLayer(new OpenLayers.Layer.OSM());
+  
+    
+    var wfs_options = {
+      url: 'http://gisforge.no-ip.org:5984/rwilb/_design/wfs/_spatial/_list/wfspoint/point?',
+      params: {
+          request: "GetFeature",
+          service: "wfs",
+          version: "1.0.0",
+          //typeName: "layername"
+      },
+      format: new OpenLayers.Format.GML({
+          //featureNS: "http://ng.org/sf",
+          //geometryName: "wkb_geometry"
+      })
+    }
+    
+    wfs = new OpenLayers.Layer.Vector('WFS', {
+      strategies: [new OpenLayers.Strategy.BBOX()],
+      visibility: true,
+      protocol: new OpenLayers.Protocol.HTTP(wfs_options),
+    });
+    
+    map.addLayer(wfs);
+    //map.zoomToMaxExtent();
+    map.setCenter(position, zoom );
+  </script>
+</html>
