@@ -15,7 +15,7 @@ function(head, req) {
     start({'headers': {'content-type': 'text/xml; subtype=gml/3.1.1'} });
     // -- Header
     
-    send('<WFS_Capabilities xmlns="http://www.opengis.net/wfs" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1.0" updateSequence="0" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/WFS-capabilities.xsd">');
+    send('<WFS_Capabilities xmlns="http://www.opengis.net/wfs" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0.0" updateSequence="0" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-capabilities.xsd">');
       send('<!-- CouchWFS version 0.2 SUPPORTS=WFS_SERVER SUPPORTS=WFS_CLIENT -->'); // angelehnt an die Geoserver Angaben
       send('<Service>');
         send('<Name>'+m_ServiceName+'</Name>');
@@ -164,7 +164,7 @@ function(head, req) {
 
     // send the response XML
     send('<?xml version="1.0" encoding="UTF-8"?>');
-    send('<wfs:FeatureCollection xmlns:wfs="http://www.opengis.net/wfs" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.com/myns http://localhost:8888/wfsservlet?featureTypeId=1 http://www.opengis.net/wfs ../wfs/1.1.0/WFS-basic.xsd" >');
+    send('<wfs:FeatureCollection xmlns:wfs="http://www.opengis.net/wfs" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.com/myns http://localhost:8888/wfsservlet?featureTypeId=1 http://www.opengis.net/wfs ../wfs/1.0.0/WFS-basic.xsd" >');
     
       send('<gml:boundedBy xmlns:gml="http://www.opengis.net/gml" >');
         send('<gml:Box srsName="'+m_CoordSystem+'" >');
